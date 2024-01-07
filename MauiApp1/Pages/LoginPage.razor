@@ -1,0 +1,62 @@
+﻿@page "/LoginPage"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager nav
+@inject User user
+@using MauiApp1.Data
+@using MauiApp1.NewFolder;
+
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        @if (string.IsNullOrEmpty(_password))
+        {
+            <h1>@_password</h1>
+        }
+        <MudPaper Class="pa-4">
+                <MudTextField T="string" @bind-Value="@_username" Label="Username" Required="true" RequiredError="User name is required!" />
+            <MudTextField T="string" @bind-Value="@_password" Label="Password" Required="true" RequiredError="User name is required!" />
+
+        </MudPaper>
+        <MudPaper Class="pa-4 mt-4">
+
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="OnLogin" Class="mx-2">Login</MudButton>
+
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="5">
+        
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    [CascadingParameter]
+    private Globalstate _globalState { get; set; }
+
+    string _username;
+    string _password;
+    string _errorMessage;
+
+
+        private void OnLogin()
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(_password))
+                {
+                    _errorMessage = "Please Provide Password";
+                    return;
+                }
+                _globalState.worker = user.LoginWorker(_password);
+            nav.NavigateTo("/Coffee");
+
+            }
+            catch (Exception e)
+            {
+                _errorMessage = e.Message;
+            }
+        }
+
+    }

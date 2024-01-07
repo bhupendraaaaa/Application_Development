@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+@using MauiApp1.Data;
+
+
+
+<MudLayout>
+    <CascadingValue Value="_globalState">
+        @Body
+    </CascadingValue>
+</MudLayout>
+
+@code {
+    private Globalstate _globalState = new();
+
+}

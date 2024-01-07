@@ -1,0 +1,37 @@
+﻿@page "/Coffee"
+
+@page "/SimpleTable"
+@using MudBlazor;
+@using MudBlazor.Components;
+@using MauiApp1.Data;
+
+
+
+<MudTable Items="@data" Hover="true">
+    <HeaderContent>
+        <MudTh>Column 1</MudTh>
+        <MudTh>Column 2</MudTh>
+        <MudTh>Column 3</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Column1</MudTd>
+        <MudTd>@context.Column2</MudTd>
+        <MudTd>@context.Column3</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private List<TableRowData> data = new List<TableRowData>
+    {
+        new TableRowData { Column1 = "Value 1", Column2 = "Value 2", Column3 = "Value 3" },
+        new TableRowData { Column1 = "Value 4", Column2 = "Value 5", Column3 = "Value 6" },
+        // Add more rows as needed
+    };
+
+    private class TableRowData
+    {
+        public string Column1 { get; set; }
+        public string Column2 { get; set; }
+        public string Column3 { get; set; }
+    }
+}
